@@ -1,5 +1,24 @@
 /* Styles */
 
+/* Colores Base */
+.colorOptions {
+    color: #e3b01d; /* btnSpecial */
+    color: #b96717; /* shadow btnSpecial */
+    color: #d1c5b1; /* btn */
+    color: #c0b18f; /* shadow btn */
+    color: #564e45; /* btnEqual */
+    color: #2d251a; /* shadow btnEqual */
+    color: #40dfcb; /* digitosDisplay */
+    color: #010101; /* display */
+    color: #f58a3b; /* boton equal */
+    color: #bbba9c; /* cuerpo y botones */
+    color: #34393f; /* bg botones */
+    color: #e9f2ec; /* botones */
+    color: #690b29; /* digitosDisplay */
+    color: #141116; /* display */
+    color: #424c55; /* bg escenario */
+}
+
 * {
     padding: 0px;
     margin: 0px;
@@ -32,15 +51,15 @@ footer {
 }
 
 .calculator__box {
-    background-color: rgb(29, 29, 29);
+    background-color: #34393f;
     border-radius: 20px;
 }
 
 .calculator__display {
-    background-color:#040c07;
+    background-color:#141116;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
-    color:aquamarine;
+    color:#40dfcb;
     height: auto;
     padding: 15px;
     font-size: 1.3em;
@@ -57,26 +76,26 @@ footer {
 }
 
 .calcButton {
+    color:#000;
     border-radius:5px;
     border: 0px;
+    padding: 5px;
 }
 
 .numBtn {
-    background-color: #fff;
+    background-color: #e9f2ec;
 }
 
 .operBtn {
-    color: #fff;
-    background-color: #b6a9a9;
+    background-color: #ece7c0;
 }
 
 .specialBtn {
     color: #fff;
-    background-color: red;
+    background-color: rgb(212, 7, 7);
 }
 
 .equalBtn {
-    color: #fff;
-    background-color:orange;
+    background-color:#e3b01d;
 }
 
