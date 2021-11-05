@@ -17,7 +17,19 @@
     color: #690b29; /* digitosDisplay */
     color: #141116; /* display */
     color: #424c55; /* bg escenario */
+    font-family: 'Bungee', cursive;
+    font-family: 'Jockey One', sans-serif;
+    font-family: 'Monoton', cursive;
+    font-family: 'Zen Dots', cursive;
 }
+
+/* TODO:
+todo list
+1. save width of calculator
+2. display overflow hidden
+3. add brand on top of calculator
+4. add japanese characters?
+*/
 
 * {
     padding: 0px;
@@ -25,7 +37,7 @@
 }
 
 body {
-    background-color:#b5d9cf;
+    background-color:#424c55;
 }
 
 header {
@@ -46,13 +58,24 @@ footer {
 
 .calculator {
     background-color: #ece7c0;
-    padding: 35px 15px 20px;
-    border-radius: 25px;
+    padding: 65px 15px 25px;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    min-width: 280px;
+    box-shadow: 0px -20px 50px 10px #19222975,
+                inset 0px 6px 20px 5px #b9671745;
 }
 
 .calculator__box {
-    background-color: #34393f;
-    border-radius: 20px;
+    background-color: #30363d;
+    border-top-right-radius:20px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    box-shadow: 0px 5px 5px 1px #ffffff85,
+                inset 0px 0px 15px 0px #141116;
 }
 
 .calculator__display {
@@ -61,41 +84,127 @@ footer {
     border-top-left-radius: 20px;
     color:#40dfcb;
     height: auto;
+    min-height: 100px;
     padding: 15px;
-    font-size: 1.3em;
+    font-size: 1.6em;
+    font-family: 'Zen Dots', cursive;
+    letter-spacing:2px;
+    text-shadow: 0px 0px 25px #68f8e5;
     font-weight: 600;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
+    box-shadow: 0px -50px 20px -10px #ffffff90,
+                inset 0px -5px 15px 0px #68f8e535;
+    border-bottom: 1px dashed #40dfcb55;
+}
+
+.calculator__display .backupValue,
+.calculator__display .actualValue {
+    display: flex;
+    flex-direction: row;
+}
+
+.calculator__display .backupValue {
+    padding-bottom: 5px;
+}
+
+    .calculator__display div > div {
+        padding-left: 10px;
+    }
+    .calculator__display .backupValue div.calcType {
+        width: 30px;
+        text-align: right;
+    }
+
+.calculator__display .actualValue .oper-actualValue {
+    padding-right: 40px;
 }
 
 .calculator__buttons {
-    padding: 30px 10px 15px;
+    padding: 20px 10px 25px;
     text-align: center;
+    display: grid;
+    place-content: space-between;
+    grid-template-columns: repeat(4, 65px);
+    grid-template-rows: repeat(5, 65px);
+    gap: 6px;
+}
+
+.calculator__buttons .row-2 {
+    grid-column: 4;
+    grid-row: 4/6;
 }
 
 .calcButton {
+    font-family: 'Bungee', cursive;
+    font-size: 1.5em;
     color:#000;
     border-radius:5px;
     border: 0px;
-    padding: 5px;
+    padding: 10px;
+    box-shadow: inset 0px 0px 10px 5px #01010125;
 }
 
+
+/* //# Styles to number buttons */
 .numBtn {
+    padding-bottom: 3px;
+    font-size: 2em;
     background-color: #e9f2ec;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
+    .numBtn:hover {
+        background-color: #fff;
+    }
+
+/* //# Styles to operator buttons */
 .operBtn {
     background-color: #ece7c0;
 }
 
+    .operBtn:hover {
+        background-color: #faf5d0;
+    }
+
+/* //# Styles to Special Buttons CE, +/-, n' backButton */
 .specialBtn {
     color: #fff;
     background-color: rgb(212, 7, 7);
 }
+.specialBtn.backButton {
+    font-weight: bolder;
+    font-size: 2.6em;
+}
+    .specialBtn:hover {
+        background-color: rgb(241, 51, 51);
+    }
 
+/* //# Styles to equalButon " = " */
 .equalBtn {
     background-color:#e3b01d;
 }
+    .equalBtn:hover {
+        background-color: #fdce42;
+    }
 
+/* //# model text */
+.calculator__modelText {
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+
+    .calculator__modelText p {
+        color: #fff;
+        font-family: 'Jockey One', sans-serif;
+        padding: 0px 0px 15px;
+    }
+    .calculator__modelText p span {
+        color:#40dfcb;
+        font-size: .8em;
+    }

@@ -4,24 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Jockey+One&family=Monoton&family=Zen+Dots&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./styles/styles.css">
     <title>Fancy Calculator</title>
 </head>
 <body>
     <header>
-        <h1>Fancy+Calculator</h1>
+        <h1>Fancy+Calculator by @pzicodev</h1>
     </header>
     <section class="container">
         <div class="calculator">
             <div class="calculator__box">
+                <!-- <div class="pzicodev">
+                    <p>Pzicodev</p>
+                </div> -->
                 <div class="calculator__display">
-                    <div>35+</div>
-                    <div>5</div>
+                    <div class="backupValue">
+                        <div class="operator">+</div>
+                        <div class="oper-backupValue">3526.25</div>
+                        <div class="calcType">%</div>
+                    </div>
+                    <div class="actualValue">
+                        <div class="operator">-</div>
+                        <div class="oper-actualValue">53893.36</div>
+                    </div>
                 </div>
                 <div class="calculator__buttons">
                     <button class="calcButton txtBtn specialBtn">CE</button>
                     <button class="calcButton operBtn">%</button>
-                    <button class="calcButton operBtn">x</button>
+                    <button class="calcButton operBtn">*</button>
                     <button class="calcButton operBtn specialBtn">+/-</button>
                     <button class="calcButton numBtn">7</button>
                     <button class="calcButton numBtn">8</button>
@@ -34,10 +47,13 @@
                     <button class="calcButton numBtn">1</button>
                     <button class="calcButton numBtn">2</button>
                     <button class="calcButton numBtn">3</button>
-                    <button class="calcButton txtBtn specialBtn">&larr;</button>
+                    <button class="calcButton operBtn equalBtn row-2">=</button>
+                    <button class="calcButton txtBtn specialBtn backButton">&larr;</button>
                     <button class="calcButton numBtn">0</button>
                     <button class="calcButton operBtn">.</button>
-                    <button class="calcButton operBtn equalBtn row-2">=</button>
+                </div>
+                <div class="calculator__modelText">
+                    <p>FancyCalculator&nbsp;&nbsp;<span>V1.0.3</span></p>
                 </div>
             </div>
         </div>
