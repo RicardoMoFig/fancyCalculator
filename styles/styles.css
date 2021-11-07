@@ -118,7 +118,7 @@ footer {
 }
 
 .calculator__buttons {
-    padding: 20px 10px;
+    padding: 0px 10px 20px;
     display: grid;
     place-content: space-between;
     grid-template-columns: repeat(4, 1fr);
@@ -222,7 +222,7 @@ footer {
     z-index: 999;
     text-shadow: 0px 2px 5px #fff;
     border: 2px solid #e6e1c1;
-    border-radius: 50%;
+    border-radius: 25px;
     box-shadow: 0px -10px 15px 0px #ece7c045,
                 inset 0px -5px 10px 5px #ffffff80;
 }
@@ -237,4 +237,33 @@ footer {
 .pzicodev span {
     font-weight: 400;
     font-size: 1.8em;
+}
+
+.moveForward {
+    padding: 10px 15px 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items:center;
+}
+
+.moveForward p {
+    color: #fff;
+    font-family: 'Jockey One', sans-serif;
+    font-style: italic;
+    font-size: 11px;
+    font-weight: 600;
+    text-shadow: 0px 0px 5px #000;
+}
+
+.moveForward p:before {
+    content: '> ';
+}
+.moveForward p:after {
+    content: ' •';
+    color: #40dfcb;
+    text-shadow: 0px 0px 10px #40dfcb;
+    font-family: serif;
+    font-style: none;
+    font-size: 30px;
+    vertical-align: middle;
 }
