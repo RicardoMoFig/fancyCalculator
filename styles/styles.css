@@ -1,6 +1,6 @@
 /* Styles */
 
-/* Tipograph
+/* Tipo
 font-family: 'Bungee', cursive;
 font-family: 'Jockey One', sans-serif;
 font-family: 'Monoton', cursive;
@@ -22,7 +22,16 @@ todo list
 }
 
 body {
-    background-color:#424c55;
+    background: radial-gradient(ellipse at top, #092944, transparent),
+    radial-gradient(ellipse at bottom, #85198f, transparent);
+    background-color:#2581c7;
+    margin: 0px;
+    padding: 0px;
+}
+
+p, h1, h2, h3, h4, h5, h6, span {
+    margin: 0px;
+    padding: 0px;
 }
 
 header {
@@ -50,7 +59,7 @@ footer {
     border-bottom-left-radius: 10px;
     max-width: 298px;
     border: 1px solid #e6e1c1;
-    box-shadow: 0px -20px 50px 10px #19222975,
+    box-shadow: 0px -30px 80px -20px #19222945,
                 inset 0px 6px 20px 5px #b9671745;
     display: flex;
     flex-direction: column;
@@ -75,7 +84,7 @@ footer {
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
     color:#40dfcb;
-    height: auto;
+    height: 50px;
     padding: 30px 15px 25px;
     font-family: 'Zen Dots', cursive;
     letter-spacing:2px;
@@ -89,30 +98,30 @@ footer {
     border-bottom: 1px dashed #40dfcb55;
 }
 
-.calculator__display .backupValue,
-.calculator__display .actualValue {
+.calculator__display .display-backupValue,
+.calculator__display .display-actualValue {
     display: flex;
     flex-direction: row;
 }
 
-.calculator__display .backupValue {
+.calculator__display .display-backupValue {
     font-size: .8em;
     padding-bottom: 5px;
 }
 
-.calculator__display .actualValue {
+.calculator__display .display-actualValue {
     font-size: 1.4em;
 }
 
 .calculator__display div > div {
     padding-left: 6px;
 }
-.calculator__display .backupValue div.typeOperation {
+.calculator__display .display-backupValue div.typeOperation {
     width: 20px;
     text-align: right;
 }
 
-.calculator__display .actualValue .oper-actualValue {
+.calculator__display .display-actualValue .actualValue {
     /* todo: eliminar si no va a ser usado */
     padding-right: 0px;
 }
@@ -133,7 +142,12 @@ footer {
     grid-row: 4/6;
 }
 
+button:focus {
+    outline: none;
+}
+
 .calcButton {
+    cursor: pointer;
     font-family: 'Bungee', cursive;
     font-size: 1.5em;
     color:#000;
@@ -163,11 +177,11 @@ footer {
 }
 
 /* //# Styles to operator buttons */
-.operBtn {
+.operBtn, .dotBtn {
     background-color: #ece7c0;
 }
 
-.operBtn:hover {
+.operBtn:hover, .dotBtn:hover {
     background-color: #faf5d0;
 }
 
@@ -247,7 +261,7 @@ footer {
 }
 
 .moveForward p {
-    color: #fff;
+    color: silver;
     font-family: 'Jockey One', sans-serif;
     font-style: italic;
     font-size: 11px;
@@ -257,11 +271,13 @@ footer {
 
 .moveForward p:before {
     content: '> ';
+    font-size: 14px;
+    color: silver;
 }
 .moveForward p:after {
     content: ' •';
-    color: #40dfcb;
-    text-shadow: 0px 0px 10px #40dfcb;
+    color: rgb(241, 51, 51);
+    text-shadow: 0px 0px 10px rgb(255, 83, 83);
     font-family: serif;
     font-style: none;
     font-size: 30px;
