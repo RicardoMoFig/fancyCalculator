@@ -2,33 +2,33 @@
 class Calculator {
   // todo:1 luego serà necesario el uso de un constructor
   // constructor(
-  //   backupValue_operator,
+  //   backupValue_sign,
   //   backupValue,
-  //   typeOperator,
-  //   actualValue_operator,
+  //   typeOperation,
+  //   actualValue_sign,
   //   actualValue
   // ) {
-  //   this.backupvalue_operator = backupValue_operator;
+  //   this.backupValue_sign = backupValue_sign;
   //   this.backupValue = backupValue;
-  //   this.typeOperator = typeOperator;
-  //   this.actualValue_operator = actualValue_operator;
+  //   this.typeOperation = typeOperation;
+  //   this.actualValue_sign = actualValue_sign;
   //   this.actualValue = actualValue;
   // }
 
-  //# methods of class
-  addOper(value1, value2) {
+  //{}: methods to perform mathematical operations
+  addition(value1, value2) {
     return value1 + value2;
   }
 
-  subtractOper(value1, value2) {
+  substract(value1, value2) {
     return value1 - value2;
   }
 
-  productOper(value1, value2) {
+  product(value1, value2) {
     return value1 * value2;
   }
 
-  moduleOper(value1, value2) {
+  module(value1, value2) {
     return value1 / value2;
   }
 }

@@ -25,12 +25,12 @@
             <div class="calculator__box">
                 <div class="calculator__display">
                     <div id="display-backupValue" class="display-backupValue">
-                        <div id="backupValue-operator" class="operator"></div>
+                        <div id="backupValue-sign" class="operator"></div>
                         <div id="backupValue" class="backupValue"></div>
-                        <div id="typeOperation" class="typeOperation"></div>
+                        <div id="signOperation" class="signOperation"></div>
                     </div>
                     <div id="display-actualValue" class="display-actualValue">
-                        <div id="actualValue-operator" class="operator"></div>
+                        <div id="actualValue-sign" class="operator"></div>
                         <div id="actualValue" class="actualValue"></div>
                     </div>
                 </div>
@@ -38,23 +38,23 @@
                     <p>&nbsp;moveForward</p>
                 </div>
                 <div class="calculator__buttons">
-                    <button class="calcButton txtBtn specialBtn">CE</button>
-                    <button class="calcButton operBtn">%</button>
-                    <button class="calcButton operBtn">*</button>
-                    <button class="calcButton operBtn specialBtn">+/-</button>
+                    <button id="deleteAllBtn" class="calcButton txtBtn specialBtn">CE</button>
+                    <button class="calcButton operBtn" value="module">%</button>
+                    <button class="calcButton operBtn" value="product">*</button>
+                    <button class="calcButton signBtn specialBtn" value="sign">+/-</button>
                     <button class="calcButton numBtn">7</button>
                     <button class="calcButton numBtn">8</button>
                     <button class="calcButton numBtn">9</button>
-                    <button class="calcButton operBtn">-</button>
+                    <button class="calcButton operBtn" value="substract">-</button>
                     <button class="calcButton numBtn">4</button>
                     <button class="calcButton numBtn">5</button>
                     <button class="calcButton numBtn">6</button>
-                    <button class="calcButton operBtn">+</button>
+                    <button class="calcButton operBtn" value="addition">+</button>
                     <button class="calcButton numBtn">1</button>
                     <button class="calcButton numBtn">2</button>
                     <button class="calcButton numBtn">3</button>
-                    <button class="calcButton operBtn equalBtn row-2">=</button>
-                    <button class="calcButton txtBtn specialBtn backButton">&larr;</button>
+                    <button class="calcButton operBtn equalBtn row-2" value="equal">=</button>
+                    <button id="deleteBtn" class="calcButton txtBtn specialBtn backButton">&larr;</button>
                     <button class="calcButton numBtn">0</button>
                     <button class="calcButton numBtn dotBtn">.</button>
                 </div>
