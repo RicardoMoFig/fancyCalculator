@@ -1,10 +1,11 @@
 //# JavaScript principal
 const backupValue_sign = document.getElementById('backupValue-sign');
 const backupValue = document.getElementById('backupValue');
-const signOperation = document.getElementById('signOperation');
 const actualValue_sign = document.getElementById('actualValue-sign');
 const actualValue = document.getElementById('actualValue');
+const signOperation = document.getElementById('signOperation');
 const numBtn = document.querySelectorAll('.numBtn');
+// const equalBtn = document.getElementById('equalBtn');
 const operBtn = document.querySelectorAll('.operBtn');
 const signBtn = document.querySelectorAll('signBtn');
 const deleteBtn = document.getElementById('deleteBtn');
@@ -19,7 +20,7 @@ numBtn.forEach((button) => {
 //> type of operation to compute
 operBtn.forEach((button) => {
   button.addEventListener('click', () => {
-    display.compute(button.value);
+    display.compute(button.value); //@ this define value to typeOper > this.typeOperation
     display.display_signOperation(button.innerHTML);
   });
 });

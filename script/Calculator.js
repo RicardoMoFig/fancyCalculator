@@ -1,34 +1,33 @@
 //# Calculator Class
 class Calculator {
-  // todo:1 luego serà necesario el uso de un constructor
-  // constructor(
-  //   backupValue_sign,
-  //   backupValue,
-  //   typeOperation,
-  //   actualValue_sign,
-  //   actualValue
-  // ) {
-  //   this.backupValue_sign = backupValue_sign;
-  //   this.backupValue = backupValue;
-  //   this.typeOperation = typeOperation;
-  //   this.actualValue_sign = actualValue_sign;
-  //   this.actualValue = actualValue;
-  // }
+  //{}: fix decimals to display
+  fixDecimals(total) {
+    if (Number.isInteger(total)) {
+      return total;
+    } else {
+      return total.toFixed(6);
+    }
+  }
 
   //{}: methods to perform mathematical operations
   addition(value1, value2) {
-    return value1 + value2;
+    const total = value1 + value2;
+    return this.fixDecimals(total);
+    // return value1 + value2;
   }
 
   substract(value1, value2) {
-    return value1 - value2;
+    const total = value1 - value2;
+    return this.fixDecimals(total);
   }
 
   product(value1, value2) {
-    return value1 * value2;
+    const total = value1 * value2;
+    return this.fixDecimals(total);
   }
 
   module(value1, value2) {
-    return value1 / value2;
+    const total = value1 / value2;
+    return this.fixDecimals(total);
   }
 }

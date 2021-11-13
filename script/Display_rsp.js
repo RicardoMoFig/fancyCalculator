@@ -37,34 +37,27 @@ class Display {
 
   //{}: method compute
   compute(typeOper) {
-    if (this.typeOperation !== 'equal' && this.display_actualValue !== '') {
-      this.calc();
-    }
-
-    //@ asignan type operation
+    this.typeOperation !== 'equal' && this.calc();
     this.typeOperation = typeOper;
-
-    //@ display values to new positions on display
     this.display_backupValue =
       this.display_actualValue || this.display_backupValue; //? display the first true
-
-    //@ now we don't show actualValue
     this.display_actualValue = '';
-
-    //@ call function printValue
     this.printValue();
   }
 
   //{}: add numbers to display
   addNumber(number) {
+    //? not more than one dot
     if (number === '.' && this.display_actualValue.includes('.')) return;
+
+    //? add a new number or dot
     this.display_actualValue = `${this.display_actualValue.toString()}${number.toString()}`;
     this.printValue();
   }
 
   //{}: add sign of type operation at display
-  /* Este método evalúa el tipo de signo de operador recibido desde index.js a través del evento click registrado desde display_signOperation. Esto permite determinar si el operador equal ha sido llamado y entonces debe ser ocultado del display */
   display_signOperation(signOper) {
+    console.log(`Tipo: ${signOper}`); // todo: delete
     if (signOper === '=' || this.display_backupValue === '') return;
     this.signOperation = signOper.toString();
     this.printValue();
@@ -72,18 +65,15 @@ class Display {
 
   //{}: print values on display
   printValue() {
+    actualValue.textContent = this.display_actualValue;
+    backupValue.textContent = this.display_backupValue;
+
+    //? no sign after compute the operation
     if (this.typeOperation !== 'equal') {
-      //> printing values to calculate
-      actualValue.textContent = this.display_actualValue;
-      backupValue.textContent = this.display_backupValue;
-      //@ show signOperation
+      /* display sign before compute operation */
       signOperation.textContent = this.signOperation;
-    } else if (this.typeOperation === 'equal') {
-      //> printing result
-      //@ orden deseado
-      actualValue.textContent = this.display_backupValue;
-      backupValue.textContent = this.display_actualValue;
-      //@ if the compute() was done, the typeOperation sign is not show
+    } else {
+      /* no display signs after operation */
       signOperation.textContent = '';
     }
   }
@@ -95,8 +85,8 @@ class Display {
 
     if (isNaN(actualValue) || isNaN(backupValue)) return;
     this.display_actualValue = this.calculator[this.typeOperation](
-      backupValue,
-      actualValue
+      actualValue,
+      backupValue
     );
   }
 }
