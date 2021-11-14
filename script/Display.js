@@ -21,7 +21,8 @@ class Display {
     this.calculator = new Calculator(); //? method to run operation
   }
 
-  //{}: methods to delete values
+  //{}: methods to delete one or ddelete all values
+  /* The "delete" nmethod allows you to delete the added values in display_actualValue. This method will remove one value at a time. In turn, the "deleteAll" method will erase all values from the screen. Yhat is, it will remove the values for display_actualValue, display_backupValue, and signOperation. */
   delete() {
     this.display_actualValue = this.display_actualValue.toString().slice(0, -1);
     this.printValue();
@@ -36,26 +37,23 @@ class Display {
   }
 
   //{}: method compute
+  /* The "compute" method establiches the type of operation to be carried out and established de position of the backup and actual (current) values on the screen, as well as deleted the values of display_actualValue when the type of operation to be carried aout is indicated */
   compute(typeOper) {
-    if (this.typeOperation !== 'equal' && this.display_actualValue !== '') {
+    if (this.typeOperation !== 'equal') {
       this.calc();
     }
+    this.typeOperation = typeOper; //@ asignan type operation
 
-    //@ asignan type operation
-    this.typeOperation = typeOper;
-
-    //@ display values to new positions on display
+    //@ display values to new positions on display (first true)
     this.display_backupValue =
-      this.display_actualValue || this.display_backupValue; //? display the first true
+      this.display_actualValue || this.display_backupValue;
 
-    //@ now we don't show actualValue
-    this.display_actualValue = '';
-
-    //@ call function printValue
-    this.printValue();
+    this.display_actualValue = ''; //@ now the actualValue is on backupValue area
+    this.printValue(); //@ call function printValue
   }
 
   //{}: add numbers to display
+  /* This method will adds the numbers entered by the user, to send then to the printValue() method. Condition: It only admits the entry of one point per value group */
   addNumber(number) {
     if (number === '.' && this.display_actualValue.includes('.')) return;
     this.display_actualValue = `${this.display_actualValue.toString()}${number.toString()}`;
@@ -63,7 +61,7 @@ class Display {
   }
 
   //{}: add sign of type operation at display
-  /* Este método evalúa el tipo de signo de operador recibido desde index.js a través del evento click registrado desde display_signOperation. Esto permite determinar si el operador equal ha sido llamado y entonces debe ser ocultado del display */
+  /* This method evaluates tyhe type of operator sign received from index.js, through the click event, registered from display_signOperation.This allows you to determine if the "equal" operator has been called, which indicates, then, that the operator sign should be hidden on the screen. */
   display_signOperation(signOper) {
     if (signOper === '=' || this.display_backupValue === '') return;
     this.signOperation = signOper.toString();
@@ -80,7 +78,6 @@ class Display {
       signOperation.textContent = this.signOperation;
     } else if (this.typeOperation === 'equal') {
       //> printing result
-      //@ orden deseado
       actualValue.textContent = this.display_backupValue;
       backupValue.textContent = this.display_actualValue;
       //@ if the compute() was done, the typeOperation sign is not show
@@ -98,5 +95,7 @@ class Display {
       backupValue,
       actualValue
     );
+
+    console.log('calc:::');
   }
 }

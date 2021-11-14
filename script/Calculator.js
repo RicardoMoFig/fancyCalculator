@@ -5,7 +5,8 @@ class Calculator {
     if (Number.isInteger(total)) {
       return total;
     } else {
-      return total.toFixed(6);
+      // todo: reduce number of decimal places (optional)
+      return total.toFixed(5);
     }
   }
 
