@@ -7,10 +7,15 @@ const signOperation = document.getElementById('signOperation');
 const numBtn = document.querySelectorAll('.numBtn');
 // const equalBtn = document.getElementById('equalBtn');
 const operBtn = document.querySelectorAll('.operBtn');
-const signBtn = document.querySelectorAll('signBtn');
+const signBtn = document.getElementById('signBtn');
 const deleteBtn = document.getElementById('deleteBtn');
 const deleteAllBtn = document.getElementById('deleteAllBtn');
 const display = new Display(backupValue, actualValue);
+
+//> signBtn
+signBtn.addEventListener('click', () => {
+  display.addSign();
+});
 
 //> registering income of values
 numBtn.forEach((button) => {

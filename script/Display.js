@@ -20,23 +20,24 @@ class Display {
     this.display_actualValue = ''; //? actual value accumulator to print on display
     this.calculator = new Calculator(); //? method to run operation
     this.reverseActive = false;
+    this.signType = '';
   }
 
-  //>!: reverseActive
-  //@ se encuentra como parte de los parámetros del constructor
-  //> Impresión de valores de resultado y nuevos valores a operar
-  /* Al detectarse el ingreso al método calc(), se cambia el estado de this.reverseActive de false a true. Esto permite que una condicional if dentro del método addNumber() asigne a this.typeOperation el valor 'addition' para que, al añadir un nuevo número, este nuevo valor sea impreso en display_actualValue se imprima a través del condicional if de printValue(), ya que es la ruta else if de printValue(), la que fue utilizada al imprimir el resultado de la operación. Todo esto es necesario porque display_actualValue se usa tanto para imprimir el total como los valores a operar */
+  //>!: about the param reverseActive
+  /* al ejecutarse calc(), cambia el estado de this.reverseActive a true, permitiendo asignar a this.typeOperation el valor 'addition' para que, al añadir un nuevo número, este nuevo valor sea impreso en display_actualValue.Esto es necesario porque display_actualValue se usa tanto para imprimir el total como los valores a operar */
 
   //{}: methods to delete one or ddelete all values
-  /* The "delete" nmethod allows you to delete the added values in display_actualValue. This method will remove one value at a time. In turn, the "deleteAll" method will erase all values from the screen. Yhat is, it will remove the values for display_actualValue, display_backupValue, and signOperation. */
+  /* "delete" nmethod allows you to delete numbers on display_actualValue */
   delete() {
     this.display_actualValue = this.display_actualValue.toString().slice(0, -1);
     this.printValue();
   }
 
+  /* "deleteAll" method will erase all values from the screen */
   deleteAll() {
     this.display_actualValue = '';
     this.display_backupValue = '';
+    this.signType = '';
     this.signOperation = '';
     this.typeOperation = undefined;
     this.printValue();
@@ -50,7 +51,7 @@ class Display {
     }
     this.typeOperation = typeOper; //@ asignan type operation
 
-    //@ display values to new positions on display (first true)
+    //@ print values to new positions on screen (active the first true)
     this.display_backupValue =
       this.display_actualValue || this.display_backupValue;
 
@@ -58,11 +59,27 @@ class Display {
     this.printValue(); //@ call function printValue
   }
 
+  //{}: add sign to number
+  /* when clicking on signBtn, it is evaluated if display_actualValue already contain a sign '-' and according to that it is removed or included */
+  addSign() {
+    if (this.signType.includes('-') || this.display_actualValue.includes('-')) {
+      if (this.display_actualValue.length > 1) return;
+      this.signType = '';
+      this.display_actualValue = this.signType;
+      this.printValue();
+    } else {
+      if (this.display_actualValue.toString() !== '') return;
+      this.signType = '-';
+      this.display_actualValue = this.signType;
+      this.printValue();
+    }
+  }
+
   //{}: add numbers to display
   /* This method will adds the numbers entered by the user, to send then to the printValue() method. Condition: It only admits the entry of one point per value group */
   addNumber(number) {
     if (this.reverseActive === true) {
-      this.typeOperation = 'addition'; //@ aqui se cambia de equal a addition
+      this.typeOperation = 'addition'; //@ typeOperation after calc()
       this.display_backupValue = '';
       this.signOperation = '';
     }
@@ -85,19 +102,19 @@ class Display {
     if (this.reverseActive === true && this.typeOperation === 'equal') {
       this.reverseActive = true; //@ allows print actualValue in display_actualValue
     }
+    //> print conditions to use actualValue or backupValue
     if (this.typeOperation !== 'equal') {
       //> printing values to calculate
       actualValue.textContent = this.display_actualValue;
       backupValue.textContent = this.display_backupValue;
-      //@ show signOperation
-      signOperation.textContent = this.signOperation;
-      this.reverseActive = false; //@ debe cambiar a false para que se ejecuten operaciones
+      this.signType = ''; //@ limits multiple printing of signType from addNumber()
+      signOperation.textContent = this.signOperation; //@ show signOperation
+      this.reverseActive = false; //@ should be false to execute operations
     } else if (this.typeOperation === 'equal') {
       //> printing result
       actualValue.textContent = this.display_backupValue;
       backupValue.textContent = this.display_actualValue;
-      //@ if the compute() was done, the typeOperation sign is not show
-      signOperation.textContent = '';
+      signOperation.textContent = ''; //@ the typeOperation sign is not show
     }
   }
 
@@ -113,5 +130,6 @@ class Display {
     );
 
     this.reverseActive = true; //@ active reverse to show "diplay values"
+    this.signType = ''; //@ probablemente no sirva de nada, pero es mejor tenerlo aqui
   }
 }
