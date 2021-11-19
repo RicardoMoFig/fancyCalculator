@@ -1,18 +1,17 @@
 //# Display
 class Display {
-  constructor(
-    backupValue_sign,
-    backupValue,
-    actualValue,
-    signOperation,
-    actualValue_sign
-  ) {
+  constructor() {
+    // backupValue_sign,
+    // backupValue,
+    // actualValue,
+    // signOperation
+    // actualValue_sign
     //@ from arguments
-    this.backupValue_sign = backupValue_sign; //? backup value operator is + or - ?
-    this.backupValue = backupValue; //? backup value number
-    this.actualValue = actualValue; //? actual value number
-    this.signOperation = signOperation; //? display type operation
-    this.actualValue_sign = actualValue_sign; //? actual value operator is + or - ?
+    // this.backupValue_sign = backupValue_sign; //? backup value operator is + or - ?
+    // this.backupValue = backupValue; //? backup value number
+    // this.actualValue = actualValue; //? actual value number
+    // this.signOperation = signOperation; //? display type operation
+    // this.actualValue_sign = actualValue_sign; //? actual value operator is + or - ?
 
     //@ not from arguments
     this.typeOperation = undefined; //? type of operation tu resolve
@@ -59,6 +58,39 @@ class Display {
     this.printValue(); //@ call function printValue
   }
 
+  // {}: review if is a negative value to change class color
+  isNegativeValue() {
+    if (actualValue.textContent.includes('-')) {
+      actualValue.classList.add('negativeValue');
+    } else {
+      actualValue.classList.remove('negativeValue');
+    }
+    if (backupValue.textContent.includes('-')) {
+      backupValue.classList.add('negativeValue');
+    } else {
+      backupValue.classList.remove('negativeValue');
+    }
+  }
+
+  //{}: are too many numbers to display?
+  /* only nine numbers will be displayed. Otherwise, the addNumber() loop exits. */
+  tooManyNumbers() {
+    if (
+      (this.display_actualValue.includes('-') &&
+        this.display_actualValue.length > 9) ||
+      (!this.display_actualValue.includes('-') &&
+        this.display_actualValue.length > 8)
+    ) {
+      if (this.display_backupValue === '') {
+        this.display_backupValue = 'too many numbers';
+        this.printValue();
+        return false;
+      } else {
+        return false;
+      }
+    }
+  }
+
   //{}: add sign to number
   /* when clicking on signBtn, it is evaluated if display_actualValue already contain a sign '-' and according to that it is removed or included */
   addSign() {
@@ -78,21 +110,37 @@ class Display {
   //{}: add numbers to display
   /* This method will adds the numbers entered by the user, to send then to the printValue() method. Condition: It only admits the entry of one point per value group */
   addNumber(number) {
+    //? after equal, reasign typeOperation to reverse displays
     if (this.reverseActive === true) {
       this.typeOperation = 'addition'; //@ typeOperation after calc()
+      actualValue.classList.remove('negativeValue');
       this.display_backupValue = '';
       this.signOperation = '';
     }
+
+    //? no more than a dot on display
     if (number === '.' && this.display_actualValue.includes('.')) return;
 
-    this.display_actualValue = `${this.display_actualValue.toString()}${number.toString()}`;
-    this.printValue();
+    //? adding numbers || resolve "too many numbers" alert
+    this.tooManyNumbers();
+    if (this.tooManyNumbers() === false) {
+      return;
+    } else {
+      this.display_actualValue = `${this.display_actualValue.toString()}${number.toString()}`;
+      this.printValue();
+    }
   }
 
   //{}: add sign of type operation at display
+  // toDO: respuesta de signOperation al ingresar solo signo negatico sin una cifra
   /* This method evaluates tyhe type of operator sign received from index.js, through the click event, registered from display_signOperation.This allows you to determine if the "equal" operator has been called, which indicates, then, that the operator sign should be hidden on the screen. */
   display_signOperation(signOper) {
-    if (signOper === '=' || this.display_backupValue === '') return;
+    if (
+      signOper === '=' ||
+      this.display_backupValue === '' ||
+      this.display_backupValue === '-'
+    )
+      return;
     this.signOperation = signOper.toString();
     this.printValue();
   }
@@ -102,6 +150,7 @@ class Display {
     if (this.reverseActive === true && this.typeOperation === 'equal') {
       this.reverseActive = true; //@ allows print actualValue in display_actualValue
     }
+
     //> print conditions to use actualValue or backupValue
     if (this.typeOperation !== 'equal') {
       //> printing values to calculate
@@ -109,27 +158,29 @@ class Display {
       backupValue.textContent = this.display_backupValue;
       this.signType = ''; //@ limits multiple printing of signType from addNumber()
       signOperation.textContent = this.signOperation; //@ show signOperation
+      this.isNegativeValue();
       this.reverseActive = false; //@ should be false to execute operations
     } else if (this.typeOperation === 'equal') {
       //> printing result
       actualValue.textContent = this.display_backupValue;
       backupValue.textContent = this.display_actualValue;
       signOperation.textContent = ''; //@ the typeOperation sign is not show
+      this.isNegativeValue();
     }
   }
 
   //{}: calc operation
   calc() {
-    const actualValue = parseFloat(this.display_actualValue);
-    const backupValue = parseFloat(this.display_backupValue);
+    const actualValue_calc = parseFloat(this.display_actualValue);
+    const backupValue_calc = parseFloat(this.display_backupValue);
 
-    if (isNaN(actualValue) || isNaN(backupValue)) return;
+    if (isNaN(actualValue_calc) || isNaN(backupValue_calc)) return;
     this.display_actualValue = this.calculator[this.typeOperation](
-      backupValue,
-      actualValue
+      backupValue_calc,
+      actualValue_calc
     );
 
     this.reverseActive = true; //@ active reverse to show "diplay values"
-    this.signType = ''; //@ probablemente no sirva de nada, pero es mejor tenerlo aqui
+    this.signType = ''; // todo: comprobar utilidad
   }
 }

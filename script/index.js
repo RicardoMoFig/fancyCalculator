@@ -1,7 +1,7 @@
 //# JavaScript principal
-const backupValue_sign = document.getElementById('backupValue-sign');
+// const backupValue_sign = document.getElementById('backupValue-sign');
 const backupValue = document.getElementById('backupValue');
-const actualValue_sign = document.getElementById('actualValue-sign');
+// const actualValue_sign = document.getElementById('actualValue-sign');
 const actualValue = document.getElementById('actualValue');
 const signOperation = document.getElementById('signOperation');
 const numBtn = document.querySelectorAll('.numBtn');
