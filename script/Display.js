@@ -17,6 +17,68 @@ class Display {
    * This is necessary because display_actualValue also prints the total
    */
 
+  //{}: event.key
+  /*
+   * the user can use some keys to manage the calculator
+   */
+  keyMap(key) {
+    const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
+    const operators = ['+', '-', '*', '/', '%', '=', 'Enter'];
+    const controls = ['Backspace', 'Delete'];
+
+    let num_keyValue = numbers.find((num) => num === key);
+    let oper_keyValue = operators.find((num) => num === key);
+    let control_key = controls.find((order) => order === key);
+
+    if (num_keyValue) {
+      this.addNumber(num_keyValue);
+    } else if (oper_keyValue) {
+      switch (oper_keyValue) {
+        case '+':
+          oper_keyValue = 'addition';
+          this.display_signOperation('+');
+          break;
+        case '-':
+          if (
+            this.display_actualValue === '' ||
+            this.display_actualValue === '-'
+          ) {
+            this.negativeValues();
+          } else {
+            oper_keyValue = 'substract';
+            this.display_signOperation('-');
+          }
+          break;
+        case '*':
+          oper_keyValue = 'product';
+          this.display_signOperation('*');
+          break;
+        case '/':
+        case '%':
+          oper_keyValue = 'module';
+          this.display_signOperation('%');
+          break;
+        case 'Enter':
+        case '=':
+          oper_keyValue = 'equal';
+          this.display_signOperation('=');
+          break;
+      }
+      return this.compute(oper_keyValue);
+    } else if (control_key) {
+      switch (control_key) {
+        case 'Backspace':
+          this.delete();
+          break;
+        case 'Delete':
+          this.deleteAll();
+          break;
+      }
+    } else {
+      return;
+    }
+  }
+
   //{}: methods to delete one or all values
   delete() {
     this.display_actualValue = this.display_actualValue.toString().slice(0, -1);
@@ -101,6 +163,7 @@ class Display {
   negativeValues() {
     if (this.signType.includes('-') || this.display_actualValue.includes('-')) {
       if (this.display_actualValue.length > 1) return;
+
       this.signType = '';
       this.display_actualValue = this.signType;
       this.printValue();
@@ -146,8 +209,8 @@ class Display {
    * the sign should not be seen if there are no numbers on displa_backupValue
    */
   display_signOperation(signOper) {
+    this.signOperation = signOper;
     if (signOper === '=' || this.display_backupValue === '') return;
-    this.signOperation = signOper.toString();
     this.printValue();
   }
 

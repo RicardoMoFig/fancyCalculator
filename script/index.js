@@ -19,6 +19,11 @@ numBtn.forEach((button) => {
   button.addEventListener('click', () => display.addNumber(button.innerHTML));
 });
 
+//> registering keypdown to send value
+document.addEventListener('keydown', (event) => {
+  display.keyMap(event.key);
+});
+
 //> type of operation to compute
 operBtn.forEach((button) => {
   button.addEventListener('click', () => {
