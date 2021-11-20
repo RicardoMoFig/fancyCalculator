@@ -1,11 +1,8 @@
 //# JavaScript principal
-// const backupValue_sign = document.getElementById('backupValue-sign');
 const backupValue = document.getElementById('backupValue');
-// const actualValue_sign = document.getElementById('actualValue-sign');
 const actualValue = document.getElementById('actualValue');
 const signOperation = document.getElementById('signOperation');
 const numBtn = document.querySelectorAll('.numBtn');
-// const equalBtn = document.getElementById('equalBtn');
 const operBtn = document.querySelectorAll('.operBtn');
 const signBtn = document.getElementById('signBtn');
 const deleteBtn = document.getElementById('deleteBtn');
@@ -14,7 +11,7 @@ const display = new Display(backupValue, actualValue);
 
 //> signBtn
 signBtn.addEventListener('click', () => {
-  display.addSign();
+  display.negativeValues();
 });
 
 //> registering income of values

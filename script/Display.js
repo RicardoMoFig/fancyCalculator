@@ -1,38 +1,28 @@
 //# Display
 class Display {
   constructor() {
-    // backupValue_sign,
-    // backupValue,
-    // actualValue,
-    // signOperation
-    // actualValue_sign
-    //@ from arguments
-    // this.backupValue_sign = backupValue_sign; //? backup value operator is + or - ?
-    // this.backupValue = backupValue; //? backup value number
-    // this.actualValue = actualValue; //? actual value number
-    // this.signOperation = signOperation; //? display type operation
-    // this.actualValue_sign = actualValue_sign; //? actual value operator is + or - ?
-
     //@ not from arguments
-    this.typeOperation = undefined; //? type of operation tu resolve
-    this.display_backupValue = ''; //? backup value accumulator to print on display
-    this.display_actualValue = ''; //? actual value accumulator to print on display
-    this.calculator = new Calculator(); //? method to run operation
+    this.typeOperation = undefined; //@ type of operation tu resolve
+    this.display_backupValue = ''; //@ backup value accumulator to print on display
+    this.display_actualValue = ''; //@ actual value accumulator to print on display
+    this.calculator = new Calculator(); //@ method to run operation
     this.reverseActive = false;
     this.signType = '';
   }
 
   //>!: about the param reverseActive
-  /* al ejecutarse calc(), cambia el estado de this.reverseActive a true, permitiendo asignar a this.typeOperation el valor 'addition' para que, al añadir un nuevo número, este nuevo valor sea impreso en display_actualValue.Esto es necesario porque display_actualValue se usa tanto para imprimir el total como los valores a operar */
+  /*
+   * executing calc () changes the state of this.reverseActive to "true"
+   * this.typeOperation will be assigned the value 'addition'
+   * This is necessary because display_actualValue also prints the total
+   */
 
-  //{}: methods to delete one or ddelete all values
-  /* "delete" nmethod allows you to delete numbers on display_actualValue */
+  //{}: methods to delete one or all values
   delete() {
     this.display_actualValue = this.display_actualValue.toString().slice(0, -1);
     this.printValue();
   }
 
-  /* "deleteAll" method will erase all values from the screen */
   deleteAll() {
     this.display_actualValue = '';
     this.display_backupValue = '';
@@ -43,19 +33,27 @@ class Display {
   }
 
   //{}: method compute
-  /* The "compute" method establiches the type of operation to be carried out and established de position of the backup and actual (current) values on the screen, as well as deleted the values of display_actualValue when the type of operation to be carried aout is indicated */
+  /*
+   * The "compute" method establishes the type of operation to be performed
+   * sets the position of display_backupValue on the display
+   * clears the values of display_actualValue when it indicates the type of operation
+   */
   compute(typeOper) {
+    if (this.display_actualValue === '-' || this.display_actualValue === '')
+      return;
     if (this.typeOperation !== 'equal') {
       this.calc();
     }
-    this.typeOperation = typeOper; //@ asignan type operation
+    //@ assigns type operation
+    this.typeOperation = typeOper;
 
-    //@ print values to new positions on screen (active the first true)
+    //@ print values to new positions on screen
     this.display_backupValue =
       this.display_actualValue || this.display_backupValue;
 
-    this.display_actualValue = ''; //@ now the actualValue is on backupValue area
-    this.printValue(); //@ call function printValue
+    //@ now the actualValue is on backupValue area
+    this.display_actualValue = '';
+    this.printValue();
   }
 
   // {}: review if is a negative value to change class color
@@ -65,6 +63,7 @@ class Display {
     } else {
       actualValue.classList.remove('negativeValue');
     }
+
     if (backupValue.textContent.includes('-')) {
       backupValue.classList.add('negativeValue');
     } else {
@@ -73,7 +72,10 @@ class Display {
   }
 
   //{}: are too many numbers to display?
-  /* only nine numbers will be displayed. Otherwise, the addNumber() loop exits. */
+  /*
+   * only nine numbers will be displayed.
+   * Otherwise, the addNumber() loop exits
+   */
   tooManyNumbers() {
     if (
       (this.display_actualValue.includes('-') &&
@@ -92,8 +94,11 @@ class Display {
   }
 
   //{}: add sign to number
-  /* when clicking on signBtn, it is evaluated if display_actualValue already contain a sign '-' and according to that it is removed or included */
-  addSign() {
+  /*
+   * it is evaluated if display_actualValue already contain a sign '-'
+   * according to that it, '-' is removed or included
+   */
+  negativeValues() {
     if (this.signType.includes('-') || this.display_actualValue.includes('-')) {
       if (this.display_actualValue.length > 1) return;
       this.signType = '';
@@ -108,9 +113,13 @@ class Display {
   }
 
   //{}: add numbers to display
-  /* This method will adds the numbers entered by the user, to send then to the printValue() method. Condition: It only admits the entry of one point per value group */
+  /*
+   * This method will adds the numbers entered by the user.
+   * send to printValue() method.
+   * Condition: It only admits the entry of one point per value group
+   */
   addNumber(number) {
-    //? after equal, reasign typeOperation to reverse displays
+    //> after equal, reasign typeOperation to reverse displays
     if (this.reverseActive === true) {
       this.typeOperation = 'addition'; //@ typeOperation after calc()
       actualValue.classList.remove('negativeValue');
@@ -118,11 +127,10 @@ class Display {
       this.signOperation = '';
     }
 
-    //? no more than a dot on display
     if (number === '.' && this.display_actualValue.includes('.')) return;
 
-    //? adding numbers || resolve "too many numbers" alert
     this.tooManyNumbers();
+
     if (this.tooManyNumbers() === false) {
       return;
     } else {
@@ -133,14 +141,12 @@ class Display {
 
   //{}: add sign of type operation at display
   // toDO: respuesta de signOperation al ingresar solo signo negatico sin una cifra
-  /* This method evaluates tyhe type of operator sign received from index.js, through the click event, registered from display_signOperation.This allows you to determine if the "equal" operator has been called, which indicates, then, that the operator sign should be hidden on the screen. */
+  /*
+   * this method shows the sign of the type of operation
+   * the sign should not be seen if there are no numbers on displa_backupValue
+   */
   display_signOperation(signOper) {
-    if (
-      signOper === '=' ||
-      this.display_backupValue === '' ||
-      this.display_backupValue === '-'
-    )
-      return;
+    if (signOper === '=' || this.display_backupValue === '') return;
     this.signOperation = signOper.toString();
     this.printValue();
   }

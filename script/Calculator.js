@@ -2,18 +2,21 @@
 class Calculator {
   //{}: fix decimals to display
   fixTotal(total) {
-    if (Number.isInteger(total) && total.toString().length > 7) {
+    const longLimit = total.toString().length > 7;
+    const decimals = 2;
+
+    if (Number.isInteger(total) && longLimit) {
       total = Math.cbrt(total);
-      total = `${total.toFixed(2)}e4`;
+      total = `${total.toFixed(decimals)}e4`;
       return total;
     } else if (Number.isInteger(total)) {
       return total;
-    } else if (total.toString().length > 7) {
+    } else if (longLimit) {
       total = Math.cbrt(total);
-      total = `${total.toFixed(2)}e4`;
+      total = `${total.toFixed(decimals)}e4`;
       return total;
     } else {
-      return total.toFixed(3);
+      return total.toFixed(decimals);
     }
   }
 
@@ -21,7 +24,6 @@ class Calculator {
   addition(value1, value2) {
     const total = value1 + value2;
     return this.fixTotal(total);
-    // return value1 + value2;
   }
 
   substract(value1, value2) {
