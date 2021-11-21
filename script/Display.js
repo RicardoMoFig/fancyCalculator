@@ -7,6 +7,9 @@ class Display {
     this.display_actualValue = ''; //@ actual value accumulator to print on display
     this.calculator = new Calculator(); //@ method to run operation
     this.reverseActive = false;
+    this.flickerLight = flickerLight;
+    this.switchBtn = switchBtn;
+    this.calculatorDisplay = calcDisplay;
     this.signType = '';
   }
 
@@ -16,6 +19,28 @@ class Display {
    * this.typeOperation will be assigned the value 'addition'
    * This is necessary because display_actualValue also prints the total
    */
+
+  //{}: switchBtn
+  switchActive() {
+    switchBtn.classList.toggle('switchOn');
+    if (switchBtn.classList.contains('switchOn')) {
+      calcDisplay.classList.add('calculator__display-on');
+      this.deleteAll(); // todo: review if is need after condition to use calc
+      this.display_actualValue = '0';
+      this.printValue();
+    } else {
+      calcDisplay.classList.remove('calculator__display-on');
+      this.deleteAll();
+    }
+  }
+
+  //{}: flicker light
+  onflickerLight() {
+    flickerLight.classList.toggle('flicker');
+    setTimeout(function () {
+      flickerLight.classList.toggle('flicker');
+    }, 1000);
+  }
 
   //{}: event.key
   /*
@@ -118,21 +143,6 @@ class Display {
     this.printValue();
   }
 
-  // {}: review if is a negative value to change class color
-  isNegativeValue() {
-    if (actualValue.textContent.includes('-')) {
-      actualValue.classList.add('negativeValue');
-    } else {
-      actualValue.classList.remove('negativeValue');
-    }
-
-    if (backupValue.textContent.includes('-')) {
-      backupValue.classList.add('negativeValue');
-    } else {
-      backupValue.classList.remove('negativeValue');
-    }
-  }
-
   //{}: are too many numbers to display?
   /*
    * only nine numbers will be displayed.
@@ -146,12 +156,28 @@ class Display {
         this.display_actualValue.length > 8)
     ) {
       if (this.display_backupValue === '') {
+        // todo: fix: muestra mensaje sin numeros en la pantalla
         this.display_backupValue = 'too many numbers';
         this.printValue();
         return false;
       } else {
         return false;
       }
+    }
+  }
+
+  // {}: review if is a negative value to change class color
+  isNegativeValue() {
+    if (actualValue.textContent.includes('-')) {
+      actualValue.classList.add('negativeValue');
+    } else {
+      actualValue.classList.remove('negativeValue');
+    }
+
+    if (backupValue.textContent.includes('-')) {
+      backupValue.classList.add('negativeValue');
+    } else {
+      backupValue.classList.remove('negativeValue');
     }
   }
 
@@ -191,8 +217,6 @@ class Display {
     }
 
     if (number === '.' && this.display_actualValue.includes('.')) return;
-
-    this.tooManyNumbers();
 
     if (this.tooManyNumbers() === false) {
       return;
@@ -244,6 +268,7 @@ class Display {
     const backupValue_calc = parseFloat(this.display_backupValue);
 
     if (isNaN(actualValue_calc) || isNaN(backupValue_calc)) return;
+
     this.display_actualValue = this.calculator[this.typeOperation](
       backupValue_calc,
       actualValue_calc

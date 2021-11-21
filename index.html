@@ -23,7 +23,7 @@
                 <p><span>@</span>pzicodev</p>
             </div>
             <div class="calculator__box">
-                <div class="calculator__display">
+                <div id="calcDisplay" class="calculator__display">
                     <div id="display-backupValue" class="display-backupValue">
                         <div id="backupValue" class="backupValue"></div>
                         <div id="signOperation" class="signOperation"></div>
@@ -32,8 +32,15 @@
                         <div id="actualValue" class="actualValue"></div>
                     </div>
                 </div>
-                <div class="moveForward">
-                    <p>&nbsp;moveForward</p>
+                <div class="calculator__switch">
+                    <div class="switchButton">
+                        <input type="checkbox" class="checkbox">
+                        <div id="switchBtn" class="switch"></div>
+                    </div>
+                    <div>
+                        <p class="moveForward">&nbsp;moveForward</p>
+                        <p id="flickerLight" class="dotLight"> •</p>
+                    </div>
                 </div>
                 <div class="calculator__buttons">
                     <button id="deleteAllBtn" class="calcButton txtBtn specialBtn">CE</button>

@@ -2,7 +2,9 @@
 class Calculator {
   //{}: fix decimals to display
   fixTotal(total) {
+    // console.log(`Total typeof: ${typeof total}`);
     const longLimit = total.toString().length > 7;
+    // const valueLimit = 999999999;
     const decimals = 2;
 
     if (Number.isInteger(total) && longLimit) {

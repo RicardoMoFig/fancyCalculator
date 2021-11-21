@@ -5,15 +5,6 @@ font-family: 'Bungee', cursive;
 font-family: 'Jockey One', sans-serif;
 font-family: 'Monoton', cursive;
 font-family: 'Zen Dots', cursive;
-/
-
-
-/* TODO:
-todo list
-1. save width of calculator //> done
-2. display overflow hidden //> pend
-3. add brand on top of calculator //> done
-4. add japanese characters? //> rejected
 */
 
 * {
@@ -59,7 +50,6 @@ footer {
     border: 1px solid #e6e1c1;
     box-shadow: 0px -30px 80px -20px #19222945,
                 inset 0px 6px 20px 5px #b9671745;
-    /* max-width: 298px; */
     padding: 35px 15px 25px;
 
     /* //# display flex */
@@ -100,9 +90,65 @@ footer {
 
     /* //# effects */
     text-shadow: 0px 0px 8px #68f8e575;
+    box-shadow: 0px -50px 20px -10px #ffffff90;
+}
+
+.calculator__display-on {
     box-shadow: 0px -50px 20px -10px #ffffff90,
                 inset 0px -5px 15px 0px #68f8e535;
-    border-bottom: 1px dashed #40dfcb55;
+    outline: 1px dashed #40dfcb55;
+
+    animation-name: displayOn;
+    animation-duration: .3s;
+    animation-timing-function:ease-in;
+    animation-iteration-count:1;
+
+    -webkit-animation-name: flicker;
+    -webkit-animation-duration: .3s;
+    -webkit-animation-timing-function:ease-in;
+    -webkit-animation-iteration-count:1;
+}
+
+@-moz-keyframes displayOn {
+    0% {
+        opacity: .6;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes displayOn {
+    0% {
+        opacity: .6;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes displayOn {
+    0% {
+        opacity: .6;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 .calculator__display .display-backupValue,
@@ -131,7 +177,6 @@ footer {
 .calculator__display .display-backupValue div.backupValue {
     max-width: 192px;
     overflow: hidden;
-    /* background-color: tomato; */
 }
 
 .calculator__display .display-backupValue div.signOperation {
@@ -139,14 +184,13 @@ footer {
 }
 
 .calculator__display .display-actualValue .actualValue {
-    /* todo: eliminar si no va a ser usado */
     padding-right: 0px;
     max-width: 212px;
     overflow: hidden;
 }
 
 .negativeValue {
-    color: rgb(212, 35, 35) !important;
+    color: #e30743 !important;
     text-shadow: 0px 0px 8px rgb(212, 35, 35, .75);
 }
 
@@ -155,10 +199,6 @@ footer {
     place-content: space-between;
     width: 232px; 
     height: 286px;
-    /* width: 244px; 
-    height: 307px; */
-    /* width: 100%;  */
-    /* height: auto; */
     
     /* //# display grid */
     display: grid;
@@ -286,16 +326,28 @@ button:focus {
     font-size: 1.8em;
 }
 
-.moveForward {
+.calculator__switch {
     padding: 10px 15px 10px;
 
     /* //# display flex */
     display: flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.calculator__switch div {
+    display: flex;
+    flex-direction: row;
     justify-content: flex-end;
     align-items:center;
 }
 
-.moveForward p {
+.calculator__switch p {
+    padding-left: 8px;
+}
+
+p.moveForward {
     color: silver;
     font-family: 'Jockey One', sans-serif;
     font-style: italic;
@@ -304,18 +356,141 @@ button:focus {
     text-shadow: 0px 0px 5px #000;
 }
 
-.moveForward p:before {
+p.moveForward:before {
     content: '> ';
     font-size: 14px;
     color: silver;
 }
 
-.moveForward p:after {
+.dotLight {
     content: ' •';
-    color: rgb(241, 51, 51);
-    text-shadow: 0px 0px 10px rgb(255, 83, 83);
+    color: rgb(148, 27, 27);
+    text-shadow: 0px 0px 5px #161515;
     font-family: serif;
     font-style: none;
-    font-size: 30px;
+    font-size: 36px;
     vertical-align: middle;
+}
+
+.flicker {
+    /* //# anmation light */
+    color: rgb(241, 51, 51);
+    text-shadow: 0px 0px 6px rgb(255, 83, 83);
+
+    animation-name: flicker;
+    animation-duration: .3s;
+    animation-timing-function:steps(3, end);
+    animation-iteration-count: 2.5;
+    
+    -webkit-animation-name: flicker;
+    -webkit-animation-duration: .3s;
+    -webkit-animation-timing-function:steps(3, end);
+    -webkit-animation-iteration-count: 2.5;
+}
+
+@-moz-keyframes flicker {
+    0% {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}
+
+@-webkit-keyframes flicker {
+    0% {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}
+
+/* switch */
+
+.checkbox {
+    display: none
+}
+
+.switch {
+    /* switch box */
+    width: 52px;
+    height: 28px;
+    background: #171b1f;
+    z-index: 0;
+    margin: 0;
+    padding: 0;
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    border-radius: 14px;
+    -moz-border-radius: 14px;
+    -webkit-border-radius: 14px;
+}
+
+.switch:before {
+    /* switch off status */
+    content: ' ';
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    width: 50px;
+    height: 26px;
+    background: #1d2125;
+    z-index: 1;
+    border-radius: 13px;
+    -moz-border-radius: 13px;
+    -webkit-border-radius: 13px;
+}
+
+.switch:after {
+    /* switch pin */
+    content: ' ';
+    height: 26px;
+    width: 26px;
+    border-radius: 13px;
+    background: #30363d;
+    position: absolute;
+    z-index: 2;
+    top: 1px;
+    left: 1px;
+    -webkit-transition-duration: 300ms;
+    transition-duration: 300ms;
+    -webkit-box-shadow: 0 2px 5px #161515;
+    box-shadow: 0 2px 5px #161515;
+}
+
+.switchOn,
+.switchOn:before {
+    /* switch on status */
+    background: #40dfcb85 !important;
+}
+
+.switchOn:after {
+    left: 26px !important;
 }
