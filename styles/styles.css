@@ -3,7 +3,7 @@
 /* Tipo
 font-family: 'Bungee', cursive;
 font-family: 'Jockey One', sans-serif;
-font-family: 'Monoton', cursive;
+font-family: 'Praise', cursive;
 font-family: 'Zen Dots', cursive;
 */
 
@@ -13,9 +13,9 @@ font-family: 'Zen Dots', cursive;
 }
 
 body {
-    background: radial-gradient(ellipse at top, #092944, transparent),
-    radial-gradient(ellipse at bottom, #85198f, transparent);
-    background-color:#2581c7;
+    background: radial-gradient(ellipse at top, #403d39, transparent),
+        radial-gradient(ellipse at bottom, #e7d7c1, transparent);
+    background-color: #252422;
     margin: 0px;
     padding: 0px;
 }
@@ -26,11 +26,52 @@ p, h1, h2, h3, h4, h5, h6, span {
 }
 
 header {
-    background-color: tomato;
+    /* min-height: 6vh; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
+
+header h1 {
+    color: #e7d7c1;
+    font-size: 3em;
+    font-weight: 300;
+    font-family: 'Praise', cursive;
+}
+
+header p {
+    color: white;
+    font-family: 'Jockey One', sans-serif;
 }
 
 footer {
-    background-color: turquoise;
+    /* min-height: 6vh; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+footer p {
+    color: #e7d7c1;
+    font-family: 'Jockey One', sans-serif;
+    font-weight: 300;
+    padding-bottom: 10px;
+}
+
+footer p a {
+    color: #e7d7c1;
+    text-decoration:none;
+    transition: 0.3s;
+}
+
+footer a:hover {
+    color: #c9184a;
 }
 
 .container {
@@ -38,7 +79,7 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 90vh; /* todo: corregir alto */
+    min-height: 70vh;
 }
 
 .calculator {
@@ -488,7 +529,7 @@ p.moveForward:before {
 .switchOn,
 .switchOn:before {
     /* switch on status */
-    background: #40dfcb85 !important;
+    background: #3aec9385 !important;
 }
 
 .switchOn:after {

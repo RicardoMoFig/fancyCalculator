@@ -7,9 +7,10 @@ class Display {
     this.display_actualValue = ''; //@ actual value accumulator to print on display
     this.calculator = new Calculator(); //@ method to run operation
     this.reverseActive = false;
+    this.calculator_isActive = false;
     this.flickerLight = flickerLight;
     this.switchBtn = switchBtn;
-    this.calculatorDisplay = calcDisplay;
+    this.calculatorScreen = screenOn;
     this.signType = '';
   }
 
@@ -20,26 +21,28 @@ class Display {
    * This is necessary because display_actualValue also prints the total
    */
 
-  //{}: switchBtn
-  switchActive() {
-    switchBtn.classList.toggle('switchOn');
-    if (switchBtn.classList.contains('switchOn')) {
-      calcDisplay.classList.add('calculator__display-on');
-      this.deleteAll(); // todo: review if is need after condition to use calc
-      this.display_actualValue = '0';
-      this.printValue();
-    } else {
-      calcDisplay.classList.remove('calculator__display-on');
-      this.deleteAll();
-    }
-  }
-
   //{}: flicker light
   onflickerLight() {
+    if (!this.calculator_isActive) return;
     flickerLight.classList.toggle('flicker');
     setTimeout(function () {
       flickerLight.classList.toggle('flicker');
     }, 1000);
+  }
+
+  //{}: switchBtn
+  switchActive() {
+    switchBtn.classList.toggle('switchOn');
+    if (switchBtn.classList.contains('switchOn')) {
+      screenOn.classList.add('calculator__display-on');
+      this.calculator_isActive = true;
+      this.onflickerLight();
+      this.printValue();
+    } else {
+      screenOn.classList.remove('calculator__display-on');
+      this.calculator_isActive = false;
+      this.deleteAll();
+    }
   }
 
   //{}: event.key
@@ -47,6 +50,7 @@ class Display {
    * the user can use some keys to manage the calculator
    */
   keyMap(key) {
+    if (!this.calculator_isActive) return;
     const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
     const operators = ['+', '-', '*', '/', '%', '=', 'Enter'];
     const controls = ['Backspace', 'Delete'];
@@ -129,7 +133,7 @@ class Display {
     if (this.display_actualValue === '-' || this.display_actualValue === '')
       return;
     if (this.typeOperation !== 'equal') {
-      this.calc();
+      this.calc(); //@ permite calcular resultados al digitar cualquier operador
     }
     //@ assigns type operation
     this.typeOperation = typeOper;
@@ -143,7 +147,33 @@ class Display {
     this.printValue();
   }
 
-  //{}: are too many numbers to display?
+  //{}: add numbers to display
+  /*
+   * This method will adds the numbers entered by the user.
+   * send to printValue() method.
+   * Condition: It only admits the entry of one point per value group
+   */
+  addNumber(number) {
+    if (!this.calculator_isActive) return;
+    //> after equal, reasign typeOperation to reverse displays
+    if (this.reverseActive === true) {
+      this.typeOperation = 'addition'; //@ typeOperation after calc()
+      actualValue.classList.remove('negativeValue');
+      this.display_backupValue = '';
+      this.signOperation = '';
+    }
+
+    if (number === '.' && this.display_actualValue.includes('.')) return;
+
+    if (this.tooManyNumbers() === true) {
+      return;
+    } else {
+      this.display_actualValue = `${this.display_actualValue.toString()}${number.toString()}`;
+      this.printValue();
+    }
+  }
+
+  //{}: too many numbers to display?
   /*
    * only nine numbers will be displayed.
    * Otherwise, the addNumber() loop exits
@@ -154,19 +184,11 @@ class Display {
         this.display_actualValue.length > 9) ||
       (!this.display_actualValue.includes('-') &&
         this.display_actualValue.length > 8)
-    ) {
-      if (this.display_backupValue === '') {
-        // todo: fix: muestra mensaje sin numeros en la pantalla
-        this.display_backupValue = 'too many numbers';
-        this.printValue();
-        return false;
-      } else {
-        return false;
-      }
-    }
+    )
+      return true;
   }
 
-  // {}: review if is a negative value to change class color
+  // {}: check if it is a negative value to change class color
   isNegativeValue() {
     if (actualValue.textContent.includes('-')) {
       actualValue.classList.add('negativeValue');
@@ -187,6 +209,7 @@ class Display {
    * according to that it, '-' is removed or included
    */
   negativeValues() {
+    if (!this.calculator_isActive) return;
     if (this.signType.includes('-') || this.display_actualValue.includes('-')) {
       if (this.display_actualValue.length > 1) return;
 
@@ -201,31 +224,6 @@ class Display {
     }
   }
 
-  //{}: add numbers to display
-  /*
-   * This method will adds the numbers entered by the user.
-   * send to printValue() method.
-   * Condition: It only admits the entry of one point per value group
-   */
-  addNumber(number) {
-    //> after equal, reasign typeOperation to reverse displays
-    if (this.reverseActive === true) {
-      this.typeOperation = 'addition'; //@ typeOperation after calc()
-      actualValue.classList.remove('negativeValue');
-      this.display_backupValue = '';
-      this.signOperation = '';
-    }
-
-    if (number === '.' && this.display_actualValue.includes('.')) return;
-
-    if (this.tooManyNumbers() === false) {
-      return;
-    } else {
-      this.display_actualValue = `${this.display_actualValue.toString()}${number.toString()}`;
-      this.printValue();
-    }
-  }
-
   //{}: add sign of type operation at display
   // toDO: respuesta de signOperation al ingresar solo signo negatico sin una cifra
   /*
@@ -233,8 +231,13 @@ class Display {
    * the sign should not be seen if there are no numbers on displa_backupValue
    */
   display_signOperation(signOper) {
+    if (
+      !this.calculator_isActive ||
+      signOper === '=' ||
+      this.display_backupValue === ''
+    )
+      return;
     this.signOperation = signOper;
-    if (signOper === '=' || this.display_backupValue === '') return;
     this.printValue();
   }
 
@@ -268,6 +271,8 @@ class Display {
     const backupValue_calc = parseFloat(this.display_backupValue);
 
     if (isNaN(actualValue_calc) || isNaN(backupValue_calc)) return;
+
+    // todo: permitir mostrar resultado final del hijo de calculos continuos
 
     this.display_actualValue = this.calculator[this.typeOperation](
       backupValue_calc,

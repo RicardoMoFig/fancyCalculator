@@ -9,8 +9,8 @@ const deleteBtn = document.getElementById('deleteBtn');
 const deleteAllBtn = document.getElementById('deleteAllBtn');
 const flickerLight = document.getElementById('flickerLight');
 const switchBtn = document.getElementById('switchBtn');
-const calculatorDisplay = document.getElementById('calcDisplay');
-const display = new Display(backupValue, actualValue); // todo: review arguments
+const calculatorScreen = document.getElementById('screenOn');
+const display = new Display();
 
 //> switch calculator
 switchBtn.addEventListener('click', () => {
@@ -51,7 +51,7 @@ operBtn.forEach((button) => {
 //> delete action
 deleteBtn.addEventListener('click', () => {
   display.delete();
-  display.onflickerLight();
+  // display.onflickerLight();
 });
 
 //> deleteAll action
