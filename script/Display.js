@@ -14,7 +14,7 @@ class Display {
     this.signType = '';
   }
 
-  //>!: about the param reverseActive
+  // >!: about the param reverseActive
   /*
    * executing calc () changes the state of this.reverseActive to "true"
    * this.typeOperation will be assigned the value 'addition'
